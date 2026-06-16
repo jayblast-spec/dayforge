@@ -1,37 +1,38 @@
 # DayForge
 
-DayForge is part of ArkNet Digital's AI Productivity Suite.
+DayForge is an ArkNet Digital product in the AI Productivity Suite.
 
 ## Promise
 
-turn a chaotic day into a sharp execution plan with recovery buffers
+Forge a chaotic day into a calm execution command plan.
 
-## Built For
+DayForge helps high-agency builders protect deep work, recover from delays, and end the day with a clear learning loop instead of an exhausted task graveyard.
 
-busy founders, builders, and high-agency teams
+## Current v1
 
-## Product Modules
+- Bespoke product cockpit UI
+- Live product-specific intake
+- `POST /api/intelligence`
+- Product-specific scoring and action queue
+- Contributor mission lanes
+- Mobile-friendly layout
 
-- Priority sorting
-- Calendar blocks
-- Focus sprints
-- Risk flags
-- End-of-day review
+## Contributor Missions
 
-## Open Source Direction
-
-This repo is open to contributors because strong ideas move faster when serious builders can inspect, improve, and extend them. The goal is not secrecy. The goal is speed, quality, and contribution.
-
-## First Workflow
-
-1. Enter real context.
-2. Generate a useful first output.
-3. Review risk, confidence, or next action.
-4. Save the result into product memory in a future paid workspace.
+- Calendar integration: Import real events and constraints before planning.
+- Energy pattern learning: Adapt schedules to the user’s best hours.
+- Voice morning plan: Let users speak the day and receive a command plan.
+- End-of-day lesson writer: Feed what worked and failed into persistent memory.
 
 ## Run Locally
 
 ```bash
 npm install
 npm run dev
+```
+
+## Build
+
+```bash
+npm run build
 ```
