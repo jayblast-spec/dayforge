@@ -1,6 +1,6 @@
 # DayForge
 
-DayForge is part of Joy Ogunleye's AI Productivity Suite.
+DayForge is part of ArkNet Digital's AI Productivity Suite.
 
 ## Promise
 
