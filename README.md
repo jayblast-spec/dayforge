@@ -1,38 +1,63 @@
-# DayForge
+<div align="center">
 
-DayForge is an ArkNet Digital product in the AI Productivity Suite.
+# 🗓️ DayForge
 
-## Promise
+**AI-powered daily time-block planner — paste your tasks, get a smart schedule that actually works.**
 
-Forge a chaotic day into a calm execution command plan.
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Visit-6366f1?style=for-the-badge)](https://dayforge.vercel.app)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![MIT License](https://img.shields.io/badge/License-MIT-34d399?style=for-the-badge)](LICENSE)
 
-DayForge helps high-agency builders protect deep work, recover from delays, and end the day with a clear learning loop instead of an exhausted task graveyard.
+</div>
 
-## Current v1
+---
 
-- Bespoke product cockpit UI
-- Live product-specific intake
-- `POST /api/intelligence`
-- Product-specific scoring and action queue
-- Contributor mission lanes
-- Mobile-friendly layout
+## ✨ Features
 
-## Contributor Missions
+- ⏱️ **Time-block generator** — AI converts your task list into a realistic, time-boxed daily schedule
+- 🧠 **Cognitive load balancing** — deep work blocks scheduled at your peak hours, admin batched together
+- 🔋 **Energy-aware planning** — account for meetings, breaks, and context-switching costs
+- 🎯 **Priority ordering** — highest-leverage tasks front-loaded into the day by default
+- 📋 **One-click schedule export** — formatted for Notion, Google Calendar, or plain copy-paste
+- 🔄 **Re-plan on the fly** — drag in a new task and regenerate the rest of the day
+- ⚡ **No signup required** — paste tasks in, walk out with a schedule in under 10 seconds
 
-- Calendar integration: Import real events and constraints before planning.
-- Energy pattern learning: Adapt schedules to the user’s best hours.
-- Voice morning plan: Let users speak the day and receive a command plan.
-- End-of-day lesson writer: Feed what worked and failed into persistent memory.
+---
 
-## Run Locally
+## 🚀 Quick Start
 
 ```bash
+git clone https://github.com/jayblast-spec/dayforge.git
+cd dayforge
 npm install
 npm run dev
 ```
 
-## Build
+Open [http://localhost:3000](http://localhost:3000)
 
-```bash
-npm run build
-```
+---
+
+## 🛠 Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | Next.js 14 (App Router) |
+| Language | TypeScript |
+| AI | Groq |
+| Styling | Tailwind CSS |
+| Deployment | Vercel |
+
+---
+
+## 📦 Deploy Your Own
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/jayblast-spec/dayforge)
+
+Required env vars: `GROQ_API_KEY`
+
+---
+
+## 📄 License
+
+MIT © [Joy Ogunleye](https://github.com/jayblast-spec) · Built with [ArkNet Forge](https://arknet-os.vercel.app)
