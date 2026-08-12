@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { persistPlan } from "@/lib/db";
 
 export const maxDuration = 30;
 
@@ -49,7 +50,11 @@ export async function POST(req: NextRequest) {
 
   if (!process.env.GROQ_API_KEY) {
     await new Promise((r) => setTimeout(r, 1600));
-    return NextResponse.json({ demo: true, schedule: DEMO });
+    const planId = await persistPlan(tasks, DEMO, true).catch((err) => {
+      console.error("dayforge_plans insert failed:", err instanceof Error ? err.message : err);
+      return undefined;
+    });
+    return NextResponse.json({ demo: true, schedule: DEMO, planId });
   }
 
   const systemPrompt = `You are a world-class productivity coach and time-block scheduler.
@@ -116,7 +121,11 @@ ${tasks}`;
   try {
     const jsonMatch = content.match(/\{[\s\S]*\}/);
     const schedule: ScheduleOutput = JSON.parse(jsonMatch ? jsonMatch[0] : content);
-    return NextResponse.json({ demo: false, schedule });
+    const planId = await persistPlan(tasks, schedule, false).catch((err) => {
+      console.error("dayforge_plans insert failed:", err instanceof Error ? err.message : err);
+      return undefined;
+    });
+    return NextResponse.json({ demo: false, schedule, planId });
   } catch {
     return NextResponse.json({ error: "Failed to parse schedule" }, { status: 500 });
   }
