@@ -2,7 +2,7 @@ const ALL_TOOLS = [
   { name: "BriefOS", desc: "AI intelligence brief generator", url: "https://briefos-silk.vercel.app", live: true },
   { name: "PostCraft", desc: "LinkedIn & X post writer", url: "https://postcraft-one.vercel.app", live: true },
   { name: "InvoiceKit", desc: "Professional invoice builder", url: "https://invoicekit-pi.vercel.app", live: true },
-  { name: "ExposureWatch", desc: "Digital exposure checker", url: "https://exposure-watch.vercel.app", live: true },
+  { name: "ExposureWatch", desc: "Digital exposure checker", url: null, live: false },
   { name: "PortGuard", desc: "IP & port scanner", url: "https://portguard-six.vercel.app", live: true },
   { name: "SafeLink", desc: "URL phishing scanner", url: "https://safelink-wheat.vercel.app", live: true },
   { name: "SubnetPilot", desc: "CIDR subnet calculator", url: "https://subnetpilot.vercel.app", live: true },
