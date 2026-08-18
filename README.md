@@ -33,9 +33,19 @@ DayForge takes a pasted task list and builds a time-boxed daily schedule that ac
 ## How It Works
 
 - `app/page.tsx` renders the landing shell with `HeroSection`, `FeaturesSection`, and the `PlannerForm` input component.
-- `app/api/plan/route.ts` sends the submitted task list to the Groq Chat Completions API (`llama-3.3-70b-versatile`) and returns a structured, time-blocked schedule.
-- `app/api/intelligence/route.ts` provides a supporting formatting pass over the generated plan.
-- Styling is Tailwind CSS with Framer Motion handling interface transitions; the app is a single Next.js App Router deployment with no database layer.
+- `app/api/plan/route.ts` sends the submitted task list to the Groq Chat Completions API (`llama-3.3-70b-versatile`) against a typed `ScheduleOutput` schema, falling back to a fixed demo schedule when no API key is set.
+- `app/api/review/route.ts` persists a real end-of-day retro (what worked, what failed, one lesson) to Postgres via `lib/db.ts`, so past reviews can inform how future plans are judged.
+- Styling is Tailwind CSS with Framer Motion handling interface transitions.
+
+## Engineering Notes
+
+**The real problem:** an AI scheduler that only ever proposes plans and never learns whether they worked is just a fancier to-do list — the interesting problem is closing the loop between "here's your plan" and "here's what actually happened."
+
+**The approach:** `/api/review` persists a structured retro (what worked, what failed, one lesson) per plan to Postgres, independent of the LLM call that generated the plan — the review loop works even if Groq is unavailable, and `recentReviews()` makes past retros queryable rather than write-only.
+
+**One real number:** reviews are capped to the 14 most recent by default (`recentReviews(limit = 14)`) — roughly two weeks of retro history surfaced at a time.
+
+**Not handled yet:** past reviews aren't fed back into the plan-generation prompt yet — the persistence layer exists, but the "learn from what failed last time" loop isn't closed end-to-end.
 
 ## Live
 
