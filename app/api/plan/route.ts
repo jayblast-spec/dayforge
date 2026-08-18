@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { persistPlan } from "@/lib/db";
+import { completeWithFallback } from "@/lib/ai-fallback";
 
 export const maxDuration = 30;
 
@@ -48,15 +49,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "tasks required" }, { status: 400 });
   }
 
-  if (!process.env.GROQ_API_KEY) {
-    await new Promise((r) => setTimeout(r, 1600));
-    const planId = await persistPlan(tasks, DEMO, true).catch((err) => {
-      console.error("dayforge_plans insert failed:", err instanceof Error ? err.message : err);
-      return undefined;
-    });
-    return NextResponse.json({ demo: true, schedule: DEMO, planId });
-  }
-
   const systemPrompt = `You are a world-class productivity coach and time-block scheduler.
 Given a raw list of tasks from a user, you create a realistic, optimized daily schedule.
 
@@ -94,31 +86,8 @@ Return ONLY valid JSON matching this exact shape:
 My tasks for today:
 ${tasks}`;
 
-  const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      model: "llama-3.3-70b-versatile",
-      messages: [
-        { role: "system", content: systemPrompt },
-        { role: "user", content: userMessage },
-      ],
-      temperature: 0.3,
-      max_tokens: 2000,
-    }),
-  });
-
-  if (!response.ok) {
-    return NextResponse.json({ error: "AI service unavailable" }, { status: 500 });
-  }
-
-  const data = await response.json();
-  const content = data.choices?.[0]?.message?.content ?? "";
-
   try {
+    const { content } = await completeWithFallback(systemPrompt, userMessage, { temperature: 0.3, maxTokens: 2000 });
     const jsonMatch = content.match(/\{[\s\S]*\}/);
     const schedule: ScheduleOutput = JSON.parse(jsonMatch ? jsonMatch[0] : content);
     const planId = await persistPlan(tasks, schedule, false).catch((err) => {
@@ -126,7 +95,13 @@ ${tasks}`;
       return undefined;
     });
     return NextResponse.json({ demo: false, schedule, planId });
-  } catch {
-    return NextResponse.json({ error: "Failed to parse schedule" }, { status: 500 });
+  } catch (err) {
+    console.error("completeWithFallback failed:", err instanceof Error ? err.message : err);
+    await new Promise((r) => setTimeout(r, 1500));
+    const planId = await persistPlan(tasks, DEMO, true).catch((dbErr) => {
+      console.error("dayforge_plans insert failed:", dbErr instanceof Error ? dbErr.message : dbErr);
+      return undefined;
+    });
+    return NextResponse.json({ demo: true, schedule: DEMO, planId });
   }
 }
