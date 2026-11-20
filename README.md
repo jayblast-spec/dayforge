@@ -7,7 +7,6 @@
 DayForge converts a raw task list into a realistic, time-boxed daily schedule — deep work blocks placed at peak hours, admin work batched together, and highest-leverage tasks front-loaded by default. Add a task mid-day and the rest of the day regenerates around it.
 
 <p>
-  <a href="https://dayforge-psi.vercel.app"><img alt="Live Demo" src="https://img.shields.io/badge/Live-Demo-1D4ED8?style=for-the-badge&logo=vercel&logoColor=white"></a>
   <a href="https://github.com/jayblast-spec/dayforge"><img alt="GitHub Repo" src="https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white"></a>
 </p>
 
@@ -49,7 +48,7 @@ DayForge takes a pasted task list and builds a time-boxed daily schedule that ac
 
 ## Live
 
-[dayforge-psi.vercel.app](https://dayforge-psi.vercel.app)
+*(demo temporarily offline)*
 
 ## Tech Stack
 
